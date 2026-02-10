@@ -17,10 +17,11 @@ jobs:
 
       - name: Build and tag image    
         run: |
-          GITHUB_TOKEN=${{ secrets.PAT }}
-          GITHUB_TOKEN_OWNER=${{ secrets.PAT_OWNER }}
           COMMIT_SHA=$(echo $GITHUB_SHA | cut -c1-7)
-          docker build -t ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:$COMMIT_SHA .
+          docker build \
+             --build-arg GITHUB_TOKEN=${{ secrets.PAT }} \
+             --build-arg GITHUB_TOKEN_OWNER=${{ secrets.PAT_OWNER }} \
+             -t ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:$COMMIT_SHA .
   
       - name: Push image to GHCR
         run: docker push ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:$COMMIT_SHA
