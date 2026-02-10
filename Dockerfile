@@ -14,7 +14,7 @@ ARG GITHUB_TOKEN_OWNER
 # create a .netrc file for GitHub authentication
 RUN echo "machine github.com\nlogin ${GITHUB_TOKEN_OWNER}\npassword ${GITHUB_TOKEN}" > /root/.netrc 
 
- RUN cat /root/.netrc 
+ # RUN cat /root/.netrc 
 
 # set correct permissions for the .netrc file
 RUN chmod 600 /root/.netrc 
