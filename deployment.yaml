@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-producer
+  labels:
+    app: my-producer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-producer
+  template:
+    metadata:
+      labels:
+        app: my-producer
+    spec:
+      containers:
+        - name: my-producer
+          image: my-producer:0.1.2
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: KAFKA_BROKERS
+              value: "redpanda.default.svc.cluster.local:9092"
